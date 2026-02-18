@@ -23,10 +23,11 @@ export class AuthService {
 
   constructor(private readonly http: HttpClient) { }
 
-  //https://squid-app-a6n9k.ondigitalocean.app/auth/login
-  //https://squid-app-a6n9k.ondigitalocean.app/auth/signup
-
   login(email: string, password: string): Observable<AuthResponse>{
     return this.http.post<AuthResponse>(`${this.BASE_URL}/auth/login`, {email, password});
+  }
+
+  signup(name: string, email: string, password: string, program: string): Observable<AuthResponse>{
+    return this.http.post<AuthResponse>(`${this.BASE_URL}/auth/signup`, { name, email, password, program });
   }
 }

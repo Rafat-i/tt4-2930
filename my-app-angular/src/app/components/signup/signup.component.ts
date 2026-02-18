@@ -5,30 +5,32 @@ import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 
 @Component({
-  selector: 'app-login',
+  selector: 'app-signup',
   imports: [FormsModule, CommonModule, RouterLink],
-  templateUrl: './login.component.html',
-  styleUrl: './login.component.scss'
+  templateUrl: './signup.component.html',
+  styleUrl: './signup.component.scss'
 })
-export class LoginComponent {
+export class SignupComponent {
+  name = '';
   email = '';
   password = '';
-  errorMessage = ''
+  program = '';
+  errorMessage = '';
 
   constructor(
     private readonly authService: AuthService,
     private readonly router: Router
-  ){}
+  ) {}
 
-  submit(){
-    this.authService.login(this.email, this.password).subscribe({
-      next: (res)=>{
+  submit() {
+    this.authService.signup(this.name, this.email, this.password, this.program).subscribe({
+      next: (res) => {
         console.log(res);
         this.router.navigate(['/materials']);
       },
-      error: (err)=>{
+      error: (err) => {
         console.log(err);
-        this.errorMessage = err.error.error;
+        this.errorMessage = err.error?.error ?? err.message ?? 'Signup failed';
       }
     });
   }
